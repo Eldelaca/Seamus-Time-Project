@@ -19,14 +19,13 @@ public class TEST_TP_Points : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && obj_Detected == true)
         {
             print("eh");
-            connector_Script.TP_Sorter(is_Present);
+            connector_Script.TP_Sorter();
         }
     }
     
     private void OnTriggerExit(Collider other)
     {
-        // *** Need to add other item tags
-        if (other.CompareTag("Player") || other.CompareTag("Can TP"))
+        if (other.CompareTag("Player"))
         {
             connector_Script.objects_To_TP.Remove(other.gameObject);
             obj_Detected = false;
@@ -37,8 +36,7 @@ public class TEST_TP_Points : MonoBehaviour
     // Check that collider is an allowed type to teleport
     private void OnTriggerEnter(Collider other)
     {  
-        // *** Need to add other item tags
-        if (other.CompareTag("Player") || other.CompareTag("Can TP"))
+        if (other.CompareTag("Player"))
         {
             connector_Script.objects_To_TP.Add(other.gameObject);
             obj_Detected = true;
