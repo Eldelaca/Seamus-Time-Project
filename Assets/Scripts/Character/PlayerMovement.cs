@@ -4,12 +4,13 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Input Fields")]
-    public InputSystem_Actions inputSystemActions;
+    private InputSystem_Actions inputSystemActions;
     private InputAction moveAction;
     private InputAction jumpAction;
     private InputAction crouchAction;
     private InputAction sprintAction;
     private InputAction interactAction;
+    private InputAction shootAction;
     [SerializeField] private GroundCheck groundCheck;
 
     public bool canDrag;
@@ -18,9 +19,11 @@ public class PlayerMovement : MonoBehaviour
     private float moveSpeed;
     public float walkSpeed;
     public float sprintSpeed;
+    public float rotateSpeed;
 
     public float groundDrag;
-    public Vector3 moveDirection;
+    [HideInInspector] public Vector3 moveDirection;
+    private Vector3 lastMoveDirection;
     [SerializeField] private float movementForce = 1f;
 
     [Header("Jumping")]
@@ -39,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     private RaycastHit slopeHit;
     private bool exitingSlope;
 
-    Rigidbody rb;
+    private Rigidbody rb;
     
     private void Awake()
     {
@@ -53,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
         crouchAction = inputSystemActions.Player.Crouch;
         sprintAction = inputSystemActions.Player.Sprint;
         interactAction = inputSystemActions.Player.Interact;
+        shootAction = inputSystemActions.Player.Shoot;
     }
 
     private void OnEnable()
@@ -62,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
         crouchAction.Enable();
         sprintAction.Enable();
         interactAction.Enable();
+        shootAction.Enable();
     }
 
     private void OnDisable()
@@ -71,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
         crouchAction.Disable();
         sprintAction.Disable();
         interactAction.Disable();
+        shootAction.Disable();
     }
 
     private void Start()
@@ -93,10 +99,11 @@ public class PlayerMovement : MonoBehaviour
         MovePlayer();
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     private void StateController()
     {
         // when to jump
-        float jumpInput = jumpAction.ReadValue<float>();
+        var jumpInput = jumpAction.ReadValue<float>();
         
         if (groundCheck.isGrounded && jumpInput > 0 && readyToJump)
         {
@@ -105,10 +112,11 @@ public class PlayerMovement : MonoBehaviour
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
-        float crouchInput = crouchAction.ReadValue<float>();
+        var crouchInput = crouchAction.ReadValue<float>();
         if (crouchInput > 0)
         {
             moveSpeed = crouchSpeed;
+            print("crouching");
             
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
@@ -118,21 +126,15 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
         }
 
-        float sprintInput = sprintAction.ReadValue<float>();
+        var sprintInput = sprintAction.ReadValue<float>();
         if (sprintInput > 0)
         {
+            print("sprinting");
             moveSpeed = sprintSpeed;
         }
         
-        float interactInput = interactAction.ReadValue<float>();
-        if (interactInput > 0)
-        {
-            canDrag = true;
-        }
-        else
-        {
-            canDrag = false;
-        }
+        var interactInput = interactAction.ReadValue<float>(); //right click
+        canDrag = interactInput > 0;
 
         if (sprintInput <= 0 && crouchInput <= 0 && groundCheck.isGrounded)
         {
@@ -144,27 +146,39 @@ public class PlayerMovement : MonoBehaviour
             // in the air
             rb.linearDamping = 0;
         }
+        
+        var shootInput = shootAction.ReadValue<float>();
+        if (shootInput > 0)
+        {
+            print("SHOOTING");
+        }
     }
 
     private void MovePlayer()
     {
-        float moveInput = moveAction.ReadValue<Vector2>().x; //reading which way to move on horizontal
+        var moveInput = moveAction.ReadValue<Vector2>().x; //reading which way to move on horizontal
         moveDirection = new Vector3(moveInput * movementForce, 0f, 0f); 
         
+        if (moveDirection.magnitude > 0.1f) // Only update when moving
+        {
+            lastMoveDirection = moveDirection.normalized;
+            Quaternion rotation = Quaternion.LookRotation(lastMoveDirection, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime);
+        }
 
         if (OnSlope() && !exitingSlope)
         {
-            rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
+            rb.AddForce(GetSlopeMoveDirection() * (moveSpeed * 20f), ForceMode.Force);
 
             if (rb.linearVelocity.y > 0)
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
         }
 
         else if(groundCheck.isGrounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force); //walking
+            rb.AddForce(moveDirection.normalized * (moveSpeed * 10f), ForceMode.Force); //walking
 
         else if(!groundCheck.isGrounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force); //in air
+            rb.AddForce(moveDirection.normalized * (moveSpeed * 10f * airMultiplier), ForceMode.Force); //in air
 
         // turn gravity off while on slope
         rb.useGravity = !OnSlope();

@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerDragging : MonoBehaviour
@@ -45,13 +43,12 @@ public class PlayerDragging : MonoBehaviour
 
                 lastPlayerPosition = transform.position;
             }
-            print(exitedTrigger);
         }
         else if (objectToDrag != null && holding)// if interact is released while holding something
         {
             if (objectRb != null)
             {
-                Vector3 momentum = (transform.position - lastPlayerPosition) * momentumMultiplier;
+                //Vector3 momentum = (transform.position - lastPlayerPosition) * momentumMultiplier;
                 //objectRb.linearVelocity = momentum;
             }
 
