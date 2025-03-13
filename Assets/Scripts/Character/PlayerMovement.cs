@@ -44,6 +44,13 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rb;
     
+    
+    [Header("Time Travel Input")] 
+    // Will change based on what TP Point the player enters, assignment handled by TP Point script
+    [HideInInspector] public TP_Connector current_TP_Connector;
+    private bool tp_In_Progress;
+    
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -58,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         interactAction = inputSystemActions.Player.Interact;
         shootAction = inputSystemActions.Player.Shoot;
     }
-
+    
     private void OnEnable()
     {
         moveAction.Enable();
@@ -88,15 +95,14 @@ public class PlayerMovement : MonoBehaviour
         startYScale = transform.localScale.y;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         StateController();
         SpeedControl();
-    }
-
-    private void FixedUpdate()
-    {
-        MovePlayer();
+        
+        if(tp_In_Progress == false)
+            MovePlayer();
+        
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
@@ -150,8 +156,19 @@ public class PlayerMovement : MonoBehaviour
         var shootInput = shootAction.ReadValue<float>();
         if (shootInput > 0)
         {
-            print("SHOOTING");
+            if (current_TP_Connector == null)
+                return;
+            else
+            {
+                tp_In_Progress = true;
+                rb.linearVelocity = Vector3.zero;
+                rb.linearDamping = 0;
+                current_TP_Connector.TP_Sorter();
+                Invoke(nameof(Reset_TP_Progress), .25f);
+            }
+            
         }
+        
     }
 
     private void MovePlayer()
@@ -239,4 +256,11 @@ public class PlayerMovement : MonoBehaviour
     {
         return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
     }
+
+    private void Reset_TP_Progress()
+    {
+        tp_In_Progress = false;
+    }
+    
+    
 }

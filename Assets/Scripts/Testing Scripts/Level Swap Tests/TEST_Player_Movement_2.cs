@@ -16,6 +16,7 @@ public class Test_Player_Movement_2 : MonoBehaviour
         present_Player_Controller = present_Player_Ref.GetComponent<CharacterController>();
     }// end Start()
 
+    
     private void Update()
     {
         float move_X = Input.GetAxis("Horizontal");
@@ -24,5 +25,6 @@ public class Test_Player_Movement_2 : MonoBehaviour
         present_Player_Controller.Move(movement);
        
     }
+    
     
 }// end Test_Player_Movement

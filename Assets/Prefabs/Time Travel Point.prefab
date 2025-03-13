@@ -95,8 +95,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6915589479030055546}
-  - component: {fileID: 4521620370033290108}
   - component: {fileID: 512709394002940272}
+  - component: {fileID: 9136081105796084724}
   m_Layer: 0
   m_Name: Time Travel Point
   m_TagString: Untagged
@@ -118,10 +118,24 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1285732563313675444}
+  - {fileID: 2993165372114808215}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &4521620370033290108
-CapsuleCollider:
+--- !u!114 &512709394002940272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3966185665500896356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fd82bad6eb79ef6b834de6225c2927b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  is_Present: 1
+--- !u!65 &9136081105796084724
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -138,24 +152,40 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.65
-  m_Height: 2.75
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &512709394002940272
-MonoBehaviour:
+  serializedVersion: 3
+  m_Size: {x: 3, y: 3, z: 2}
+  m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!1 &5989299971380200642
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3966185665500896356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fd82bad6eb79ef6b834de6225c2927b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  is_Present: 1
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2993165372114808215}
+  m_Layer: 0
+  m_Name: Obj TP Point - Check Connector Script
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2993165372114808215
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5989299971380200642}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.58, y: 0.882, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6915589479030055546}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6455359647862683983
 GameObject:
   m_ObjectHideFlags: 0
