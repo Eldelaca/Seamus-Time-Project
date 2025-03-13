@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Input Fields")]
+    public InventorySystem inventorySystem;
     private InputSystem_Actions inputSystemActions;
     private InputAction moveAction;
     private InputAction jumpAction;
@@ -24,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     public float groundDrag;
     [HideInInspector] public Vector3 moveDirection;
     private Vector3 lastMoveDirection;
+    private bool wasInteracting;
     [SerializeField] private float movementForce = 1f;
 
     [Header("Jumping")]
@@ -134,7 +136,16 @@ public class PlayerMovement : MonoBehaviour
         }
         
         var interactInput = interactAction.ReadValue<float>(); //right click
-        canDrag = interactInput > 0;
+        canDrag = interactInput > 0; //instead of if statement
+        bool isInteracting = interactInput > 0;
+
+        if (isInteracting && !wasInteracting) //detects a fresh press
+        {
+            if (!inventorySystem.holdingItem) inventorySystem.PickUpItem();
+            else if (inventorySystem.holdingItem) inventorySystem.DropItem();
+        }
+
+        wasInteracting = isInteracting;
 
         if (sprintInput <= 0 && crouchInput <= 0 && groundCheck.isGrounded)
         {
