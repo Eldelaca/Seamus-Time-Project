@@ -45,6 +45,16 @@ public class TP_Timer : MonoBehaviour
         call_Origin_Script.TP_Sorter();
         timer_Active = false;
     }// end Timer()
-    
+
+    public void Start_Timer(GameObject call_Origin)
+    {
+        StopAllCoroutines();
+        StartCoroutine(Timer(call_Origin));
+    }
+
+    public void Stop_Timer()
+    {
+        StopAllCoroutines();
+    }
     
 }// end Timer

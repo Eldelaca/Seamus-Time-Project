@@ -11,6 +11,7 @@ public class TP_Connector : MonoBehaviour
 {
     [Header("References")] 
     private TP_Timer tp_Timer_Script;
+    private Player_Timeline player_Timeline_Script;
     private Rigidbody player_RB;
     [SerializeField] private LayerMask tpable_Layer;
     
@@ -27,7 +28,7 @@ public class TP_Connector : MonoBehaviour
     [Header("Visible for testing - Don't touch")]
     public List<GameObject> objects_To_TP;
     [SerializeField] private bool can_TP = true;
-    public bool in_Past = false;
+
 
     private Coroutine last_Coroutine = null;
 
@@ -35,6 +36,7 @@ public class TP_Connector : MonoBehaviour
     {
         tp_Timer_Script = GameObject.FindGameObjectWithTag("Timer").GetComponent<TP_Timer>();
         player_RB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
+        player_Timeline_Script = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_Timeline>();
     }// end Start()
 
 
@@ -48,7 +50,7 @@ public class TP_Connector : MonoBehaviour
         
         
         // Present to past
-        if (in_Past == false)
+        if (player_Timeline_Script.in_Present == true)
         {
             Check_For_TP_Objects();
             
@@ -58,13 +60,13 @@ public class TP_Connector : MonoBehaviour
             }
             
             
-            last_Coroutine = StartCoroutine(tp_Timer_Script.Timer(gameObject));
+            tp_Timer_Script.Start_Timer(gameObject);
         }
         
         // Past to present
-        else if (in_Past == true)
+        else if (player_Timeline_Script.in_Present == false)
         {
-            StopCoroutine(last_Coroutine);
+            tp_Timer_Script.Stop_Timer();
             tp_Timer_Script.timer_Active = false;
             
             Check_For_TP_Objects();
@@ -89,7 +91,7 @@ public class TP_Connector : MonoBehaviour
         // Determines which point to search
         Vector3 target_TP_Point;
         
-        if (in_Past == true)
+        if (player_Timeline_Script.in_Present == false)
             target_TP_Point = past_TP_Point.transform.position;
         else
             target_TP_Point = present_TP_Point.transform.position;
@@ -117,7 +119,7 @@ public class TP_Connector : MonoBehaviour
         else
             obj.transform.position = past_TP_Point.transform.position;
        
-        in_Past = true;
+        player_Timeline_Script.in_Present = false;
     }// end TP_To_Past()
 
     
@@ -130,7 +132,7 @@ public class TP_Connector : MonoBehaviour
         else
             obj.transform.position = present_TP_Point.transform.position;
         
-        in_Past = false;
+        player_Timeline_Script.in_Present = true;
     }// end TP_To_Present()
 
     
