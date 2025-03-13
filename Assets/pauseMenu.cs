@@ -1,11 +1,17 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
+using UnityEngine.InputSystem;
 
 public class pauseMenu : MonoBehaviour
 {
-   public static bool GameIsPaused = false;
+    [SerializeField] private InputActionAsset action_Asset;
+    private InputActionMap player_Map;
+    private InputActionMap ui_Map;
+    
+    public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
 
@@ -14,8 +20,18 @@ public class pauseMenu : MonoBehaviour
     private DepthOfField depthOfField;
     private bool isPaused = false;
 
+
+    private void Awake()
+    {
+        player_Map = action_Asset.FindActionMap("Player");
+        ui_Map = action_Asset.FindActionMap("UI");
+    }
+
     void Start()
     {
+        player_Map.Enable();
+        ui_Map.Disable();
+        
         if (postProcessingVolume != null)
         {
             
@@ -23,28 +39,23 @@ public class pauseMenu : MonoBehaviour
         }
     }
 
-    
-    void Update()
+    public void OnEnter_Menu()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            TogglePause();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (GameIsPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
-        }
+        player_Map.Disable();
+        ui_Map.Enable();
+        Pause();
     }
+
+    public void OnExit_Menu()
+    {
+        player_Map.Enable();
+        ui_Map.Disable();
+        Resume();
+    }
+    
     void Resume()
     {
+        print("resume");
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
@@ -52,6 +63,7 @@ public class pauseMenu : MonoBehaviour
 
     void Pause()
     {
+        print("pause");
        pauseMenuUI.SetActive(true);
        Time.timeScale = 0f;
        GameIsPaused = true;
