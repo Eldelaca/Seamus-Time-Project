@@ -9,7 +9,7 @@ public class InventorySystem : MonoBehaviour
     public bool holdingItem;
     private string collidingWithItemName;
     private GameObject itemHoldingGameObject;
-    [SerializeField] string itemHoldingName;
+    public string itemHoldingName;
     [SerializeField] Image itemImage;
     public Transform itemDropPos;
     

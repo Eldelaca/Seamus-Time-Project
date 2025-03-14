@@ -69,6 +69,7 @@
                     "initialStateCheck": false
                 },
                 {
+<<<<<<< Updated upstream
                     "name": "Pause",
                     "type": "Button",
                     "id": "ae99f71b-c21a-4c13-b8d3-8478410594eb",
@@ -81,6 +82,11 @@
                     "name": "Enter_Menu",
                     "type": "Button",
                     "id": "cb9c5a13-7156-4c3c-95ec-523fc1dbc9b7",
+=======
+                    "name": "Input",
+                    "type": "Button",
+                    "id": "201a2d41-217b-40b8-a971-906a981f141e",
+>>>>>>> Stashed changes
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -453,6 +459,7 @@
                 },
                 {
                     "name": "",
+<<<<<<< Updated upstream
                     "id": "f8d8fe62-21b1-4467-98b2-b627c5225625",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
@@ -470,6 +477,14 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Enter_Menu",
+=======
+                    "id": "9e2af029-696a-484e-8486-729fa367f532",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Input",
+>>>>>>> Stashed changes
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

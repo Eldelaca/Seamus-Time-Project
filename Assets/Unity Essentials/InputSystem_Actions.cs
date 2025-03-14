@@ -155,6 +155,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+<<<<<<< Updated upstream
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""ae99f71b-c21a-4c13-b8d3-8478410594eb"",
@@ -167,6 +168,11 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""name"": ""Enter_Menu"",
                     ""type"": ""Button"",
                     ""id"": ""cb9c5a13-7156-4c3c-95ec-523fc1dbc9b7"",
+=======
+                    ""name"": ""Input"",
+                    ""type"": ""Button"",
+                    ""id"": ""201a2d41-217b-40b8-a971-906a981f141e"",
+>>>>>>> Stashed changes
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -539,6 +545,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+<<<<<<< Updated upstream
                     ""id"": ""f8d8fe62-21b1-4467-98b2-b627c5225625"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
@@ -556,6 +563,14 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Enter_Menu"",
+=======
+                    ""id"": ""9e2af029-696a-484e-8486-729fa367f532"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Input"",
+>>>>>>> Stashed changes
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1170,8 +1185,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
+<<<<<<< Updated upstream
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Enter_Menu = m_Player.FindAction("Enter_Menu", throwIfNotFound: true);
+=======
+        m_Player_Input = m_Player.FindAction("Input", throwIfNotFound: true);
+>>>>>>> Stashed changes
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1273,8 +1292,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Crouch;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Sprint;
+<<<<<<< Updated upstream
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Enter_Menu;
+=======
+    private readonly InputAction m_Player_Input;
+>>>>>>> Stashed changes
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1315,6 +1338,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         /// <summary>
+<<<<<<< Updated upstream
         /// Provides access to the underlying input action "Player/Pause".
         /// </summary>
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
@@ -1322,6 +1346,11 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Enter_Menu".
         /// </summary>
         public InputAction @Enter_Menu => m_Wrapper.m_Player_Enter_Menu;
+=======
+        /// Provides access to the underlying input action "Player/Input".
+        /// </summary>
+        public InputAction @Input => m_Wrapper.m_Player_Input;
+>>>>>>> Stashed changes
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1369,12 +1398,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
+<<<<<<< Updated upstream
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
             @Enter_Menu.started += instance.OnEnter_Menu;
             @Enter_Menu.performed += instance.OnEnter_Menu;
             @Enter_Menu.canceled += instance.OnEnter_Menu;
+=======
+            @Input.started += instance.OnInput;
+            @Input.performed += instance.OnInput;
+            @Input.canceled += instance.OnInput;
+>>>>>>> Stashed changes
         }
 
         /// <summary>
@@ -1407,12 +1442,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
+<<<<<<< Updated upstream
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
             @Enter_Menu.started -= instance.OnEnter_Menu;
             @Enter_Menu.performed -= instance.OnEnter_Menu;
             @Enter_Menu.canceled -= instance.OnEnter_Menu;
+=======
+            @Input.started -= instance.OnInput;
+            @Input.performed -= instance.OnInput;
+            @Input.canceled -= instance.OnInput;
+>>>>>>> Stashed changes
         }
 
         /// <summary>
@@ -1774,11 +1815,16 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSprint(InputAction.CallbackContext context);
         /// <summary>
+<<<<<<< Updated upstream
         /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+=======
+        /// Method invoked when associated input action "Input" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+>>>>>>> Stashed changes
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+<<<<<<< Updated upstream
         void OnPause(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Enter_Menu" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
@@ -1787,6 +1833,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnEnter_Menu(InputAction.CallbackContext context);
+=======
+        void OnInput(InputAction.CallbackContext context);
+>>>>>>> Stashed changes
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

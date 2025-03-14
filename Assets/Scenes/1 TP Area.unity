@@ -271,6 +271,7 @@ GameObject:
   - component: {fileID: 48979226}
   - component: {fileID: 48979225}
   - component: {fileID: 48979224}
+  - component: {fileID: 48979227}
   m_Layer: 0
   m_Name: Blue Gate
   m_TagString: Untagged
@@ -367,6 +368,32 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48979222}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &48979227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48979222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b68a3d6ea9dbb844d8f9892b4cf4e613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventorySystem: {fileID: 1176327876}
+  requiredKeyName: KeyBlue
+  doorObject: {fileID: 48979222}
+  playerInRange: 0
+  inputAction:
+    m_Name: Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 336b2ae7-f596-42b2-82b1-18ea6a26b8bb
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  player: {fileID: 542323582}
 --- !u!1001 &86291166
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1395,6 +1422,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 283312684}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &307362871
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 307362872}
+  m_Layer: 0
+  m_Name: Transition Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &307362872
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 307362871}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.31, z: -11.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 907788793}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &312359052
 GameObject:
   m_ObjectHideFlags: 0
@@ -4230,6 +4288,7 @@ GameObject:
   - component: {fileID: 907788796}
   - component: {fileID: 907788795}
   - component: {fileID: 907788794}
+  - component: {fileID: 907788797}
   m_Layer: 0
   m_Name: Blue Key Door
   m_TagString: Untagged
@@ -4249,7 +4308,8 @@ Transform:
   m_LocalPosition: {x: 72.04, y: 41.86, z: 1.55}
   m_LocalScale: {x: 3.1340144, y: 3.4751952, z: 0.20163026}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 307362872}
   m_Father: {fileID: 859492129}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &907788794
@@ -4326,6 +4386,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 907788792}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &907788797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907788792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3353629b66c8da84ba174cf57a7482c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetLocation: {fileID: 1169455454}
 --- !u!1 &967203227
 GameObject:
   m_ObjectHideFlags: 0
@@ -4693,6 +4766,7 @@ GameObject:
   - component: {fileID: 1039809889}
   - component: {fileID: 1039809888}
   - component: {fileID: 1039809887}
+  - component: {fileID: 1039809890}
   m_Layer: 0
   m_Name: Red Gate
   m_TagString: Untagged
@@ -4789,6 +4863,32 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1039809885}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1039809890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039809885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b68a3d6ea9dbb844d8f9892b4cf4e613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventorySystem: {fileID: 1176327876}
+  requiredKeyName: KeyRed
+  doorObject: {fileID: 1039809885}
+  playerInRange: 0
+  inputAction:
+    m_Name: Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 47de1db0-92fb-4bb8-abd5-233fa346ba33
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  player: {fileID: 542323582}
 --- !u!1 &1046974024
 GameObject:
   m_ObjectHideFlags: 0
@@ -5094,6 +5194,37 @@ Transform:
   - {fileID: 1711283389}
   m_Father: {fileID: 188446465}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1169455454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1169455455}
+  m_Layer: 0
+  m_Name: Transition Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1169455455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169455454}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -8.91}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1574937276}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1175206233
 GameObject:
   m_ObjectHideFlags: 0
@@ -5225,11 +5356,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2868551555652774055, guid: c565debbfa48485409ce5996e1bb8720, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 93.26
+      value: 47.41
       objectReference: {fileID: 0}
     - target: {fileID: 2868551555652774055, guid: c565debbfa48485409ce5996e1bb8720, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 64.18
+      value: 43.23
       objectReference: {fileID: 0}
     - target: {fileID: 2868551555652774055, guid: c565debbfa48485409ce5996e1bb8720, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5307,8 +5438,8 @@ Transform:
   m_GameObject: {fileID: 1189785789}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 49.56, y: 42.89, z: -0.004799962}
-  m_LocalScale: {x: 2.2106814, y: 1.3038812, z: 3.41027}
+  m_LocalPosition: {x: 55.25, y: 41.43, z: -0.004799962}
+  m_LocalScale: {x: 3.0118325, y: 1.7764077, z: 4.646152}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 283312685}
@@ -5759,6 +5890,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1280646948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1280646949}
+  m_Layer: 0
+  m_Name: Transition Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1280646949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280646948}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -7.88}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1511149988}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1314450643
 GameObject:
   m_ObjectHideFlags: 0
@@ -6133,6 +6295,7 @@ GameObject:
   - component: {fileID: 1491469049}
   - component: {fileID: 1491469048}
   - component: {fileID: 1491469047}
+  - component: {fileID: 1491469050}
   m_Layer: 0
   m_Name: Red Key Door (Past)
   m_TagString: Untagged
@@ -6152,7 +6315,8 @@ Transform:
   m_LocalPosition: {x: 37.9, y: 41.86, z: 1.55}
   m_LocalScale: {x: 3.1340144, y: 3.4751952, z: 0.20163026}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1532214447}
   m_Father: {fileID: 1142040516}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1491469047
@@ -6229,6 +6393,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1491469045}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1491469050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491469045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3353629b66c8da84ba174cf57a7482c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetLocation: {fileID: 1280646948}
 --- !u!1 &1511149987
 GameObject:
   m_ObjectHideFlags: 0
@@ -6241,6 +6418,7 @@ GameObject:
   - component: {fileID: 1511149991}
   - component: {fileID: 1511149990}
   - component: {fileID: 1511149989}
+  - component: {fileID: 1511149992}
   m_Layer: 0
   m_Name: Red Key Door (Past)
   m_TagString: Untagged
@@ -6260,7 +6438,8 @@ Transform:
   m_LocalPosition: {x: 52.35, y: 15.074749, z: 1.5799998}
   m_LocalScale: {x: 3.1340098, y: 3.4752, z: 0.20163}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1280646949}
   m_Father: {fileID: 848491560}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1511149989
@@ -6337,6 +6516,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1511149987}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1511149992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511149987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3353629b66c8da84ba174cf57a7482c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetLocation: {fileID: 1532214446}
 --- !u!1 &1511344159
 GameObject:
   m_ObjectHideFlags: 0
@@ -6553,6 +6745,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1516159334}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1532214446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1532214447}
+  m_Layer: 0
+  m_Name: Transition Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1532214447
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532214446}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -7.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1491469046}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1566007984 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8497837614218709355, guid: 908b58aea9c3dd7f299c2bb4b4fcab9f, type: 3}
@@ -6639,6 +6862,7 @@ GameObject:
   - component: {fileID: 1574937279}
   - component: {fileID: 1574937278}
   - component: {fileID: 1574937277}
+  - component: {fileID: 1574937280}
   m_Layer: 0
   m_Name: Blue Key Door
   m_TagString: Untagged
@@ -6658,7 +6882,8 @@ Transform:
   m_LocalPosition: {x: 60.94, y: 0.54, z: 1.58}
   m_LocalScale: {x: 3.1340144, y: 3.4751952, z: 0.20163026}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1169455455}
   m_Father: {fileID: 848491560}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1574937277
@@ -6735,6 +6960,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1574937275}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1574937280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574937275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3353629b66c8da84ba174cf57a7482c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetLocation: {fileID: 307362871}
 --- !u!1 &1581709898
 GameObject:
   m_ObjectHideFlags: 0
@@ -7639,8 +7877,9 @@ GameObject:
   - component: {fileID: 1776641000}
   - component: {fileID: 1776640999}
   - component: {fileID: 1776640998}
+  - component: {fileID: 1776641001}
   m_Layer: 0
-  m_Name: PinkDoor
+  m_Name: Green Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7680,8 +7919,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.0900772, y: 0.9999999, z: 0.99999976}
+  m_Center: {x: -0.04504013, y: 0, z: 0}
 --- !u!23 &1776640999
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7705,7 +7944,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a1b409cfa431af54c8da931f7a64c9e5, type: 2}
+  - {fileID: 2100000, guid: f881ea8f3d2d141469e85eaf25e2b78e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7735,6 +7974,32 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1776640996}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1776641001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776640996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b68a3d6ea9dbb844d8f9892b4cf4e613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventorySystem: {fileID: 1176327876}
+  requiredKeyName: KeyGreen
+  doorObject: {fileID: 1776640996}
+  playerInRange: 0
+  inputAction:
+    m_Name: Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 50f3ccd6-a6f8-4037-9c13-594d2cd0b409
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  player: {fileID: 542323582}
 --- !u!1 &1792170775
 GameObject:
   m_ObjectHideFlags: 0
