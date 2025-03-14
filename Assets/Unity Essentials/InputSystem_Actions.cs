@@ -156,6 +156,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""ae99f71b-c21a-4c13-b8d3-8478410594eb"",
@@ -168,6 +169,11 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""name"": ""Enter_Menu"",
                     ""type"": ""Button"",
                     ""id"": ""cb9c5a13-7156-4c3c-95ec-523fc1dbc9b7"",
+=======
+                    ""name"": ""Input"",
+                    ""type"": ""Button"",
+                    ""id"": ""201a2d41-217b-40b8-a971-906a981f141e"",
+>>>>>>> Stashed changes
 =======
                     ""name"": ""Input"",
                     ""type"": ""Button"",
@@ -546,6 +552,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     ""id"": ""f8d8fe62-21b1-4467-98b2-b627c5225625"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
@@ -564,12 +571,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Enter_Menu"",
 =======
+=======
+>>>>>>> Stashed changes
                     ""id"": ""9e2af029-696a-484e-8486-729fa367f532"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Input"",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1186,8 +1198,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Enter_Menu = m_Player.FindAction("Enter_Menu", throwIfNotFound: true);
+=======
+        m_Player_Input = m_Player.FindAction("Input", throwIfNotFound: true);
+>>>>>>> Stashed changes
 =======
         m_Player_Input = m_Player.FindAction("Input", throwIfNotFound: true);
 >>>>>>> Stashed changes
@@ -1293,8 +1309,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Sprint;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Enter_Menu;
+=======
+    private readonly InputAction m_Player_Input;
+>>>>>>> Stashed changes
 =======
     private readonly InputAction m_Player_Input;
 >>>>>>> Stashed changes
@@ -1339,6 +1359,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         /// <summary>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         /// Provides access to the underlying input action "Player/Pause".
         /// </summary>
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
@@ -1346,6 +1367,11 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Enter_Menu".
         /// </summary>
         public InputAction @Enter_Menu => m_Wrapper.m_Player_Enter_Menu;
+=======
+        /// Provides access to the underlying input action "Player/Input".
+        /// </summary>
+        public InputAction @Input => m_Wrapper.m_Player_Input;
+>>>>>>> Stashed changes
 =======
         /// Provides access to the underlying input action "Player/Input".
         /// </summary>
@@ -1399,12 +1425,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
             @Enter_Menu.started += instance.OnEnter_Menu;
             @Enter_Menu.performed += instance.OnEnter_Menu;
             @Enter_Menu.canceled += instance.OnEnter_Menu;
+=======
+            @Input.started += instance.OnInput;
+            @Input.performed += instance.OnInput;
+            @Input.canceled += instance.OnInput;
+>>>>>>> Stashed changes
 =======
             @Input.started += instance.OnInput;
             @Input.performed += instance.OnInput;
@@ -1443,12 +1475,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
             @Enter_Menu.started -= instance.OnEnter_Menu;
             @Enter_Menu.performed -= instance.OnEnter_Menu;
             @Enter_Menu.canceled -= instance.OnEnter_Menu;
+=======
+            @Input.started -= instance.OnInput;
+            @Input.performed -= instance.OnInput;
+            @Input.canceled -= instance.OnInput;
+>>>>>>> Stashed changes
 =======
             @Input.started -= instance.OnInput;
             @Input.performed -= instance.OnInput;
@@ -1816,7 +1854,11 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         /// <summary>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+=======
+        /// Method invoked when associated input action "Input" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+>>>>>>> Stashed changes
 =======
         /// Method invoked when associated input action "Input" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
 >>>>>>> Stashed changes
@@ -1824,6 +1866,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
         void OnPause(InputAction.CallbackContext context);
         /// <summary>
@@ -1833,6 +1876,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnEnter_Menu(InputAction.CallbackContext context);
+=======
+        void OnInput(InputAction.CallbackContext context);
+>>>>>>> Stashed changes
 =======
         void OnInput(InputAction.CallbackContext context);
 >>>>>>> Stashed changes
