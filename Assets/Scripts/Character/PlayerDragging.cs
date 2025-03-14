@@ -62,19 +62,19 @@ public class PlayerDragging : MonoBehaviour
     {
         if (other.CompareTag("Draggable") && objectToDrag == null) // if its draggable, store its object (if theres nothing being stored rn)
         {
-            objectToDrag = other.transform.root.gameObject; 
+            objectToDrag = other.transform.parent.gameObject; 
             exitedTrigger = false;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (!holding && objectToDrag == other.transform.root.gameObject) // if were not holding this object, get rid of whats being stored
+        if (!holding && objectToDrag == other.transform.parent.gameObject) // if were not holding this object, get rid of whats being stored
         {
             objectToDrag = null;
         }
         
-        if (other.transform.root.gameObject == objectToDrag) // if holding the right object, allow it to be moved as we exit the trigger area
+        if (other.transform.parent.gameObject == objectToDrag) // if holding the right object, allow it to be moved as we exit the trigger area
         {
             exitedTrigger = true;
             initialOffset = objectToDrag.transform.position - transform.position;
