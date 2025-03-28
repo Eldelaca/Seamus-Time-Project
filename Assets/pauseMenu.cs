@@ -39,14 +39,14 @@ public class pauseMenu : MonoBehaviour
         }
     }
 
-    public void OnEnter_Menu()
+    public void OnPause()
     {
         player_Map.Disable();
         ui_Map.Enable();
         Pause();
     }
 
-    public void OnExit_Menu()
+    public void OnUnpause()
     {
         player_Map.Enable();
         ui_Map.Disable();
