@@ -4,7 +4,7 @@ public class PlayerDragging : MonoBehaviour
 {
     private PlayerMovement playerMovement;
     
-    private bool holding;
+    public bool holding;
     private GameObject objectToDrag;
     public float momentumMultiplier = 5f;
     
@@ -57,7 +57,7 @@ public class PlayerDragging : MonoBehaviour
             objectRb = null;
         }
     }
-
+    
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Draggable") && objectToDrag == null) // if its draggable, store its object (if theres nothing being stored rn)
@@ -66,9 +66,10 @@ public class PlayerDragging : MonoBehaviour
             exitedTrigger = false;
         }
     }
-
+    
     private void OnTriggerExit(Collider other)
     {
+
         if (!holding && objectToDrag == other.transform.parent.gameObject) // if were not holding this object, get rid of whats being stored
         {
             objectToDrag = null;

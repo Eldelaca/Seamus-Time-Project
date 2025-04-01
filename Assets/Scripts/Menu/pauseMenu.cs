@@ -4,10 +4,13 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
 using UnityEngine.InputSystem;
+using UnityEditor;
 
 public class pauseMenu : MonoBehaviour
 {
     [SerializeField] private InputActionAsset action_Asset;
+
+
     private InputActionMap player_Map;
     private InputActionMap ui_Map;
     
@@ -20,6 +23,9 @@ public class pauseMenu : MonoBehaviour
     private DepthOfField depthOfField;
     private bool isPaused = false;
 
+    private Restart restartPlayer; // Ref to Restart Script
+
+    public GameObject checkpointManager;
 
     private void Awake()
     {
@@ -29,9 +35,16 @@ public class pauseMenu : MonoBehaviour
 
     void Start()
     {
+
+        if (checkpointManager != null)
+        {
+            restartPlayer = checkpointManager.GetComponent<Restart>(); // Get the Restart component
+        }
+
         player_Map.Enable();
         ui_Map.Disable();
-        
+
+
         if (postProcessingVolume != null)
         {
             
@@ -39,6 +52,7 @@ public class pauseMenu : MonoBehaviour
         }
     }
 
+    // Stops Game
     public void OnPause()
     {
         player_Map.Disable();
@@ -46,6 +60,7 @@ public class pauseMenu : MonoBehaviour
         Pause();
     }
 
+    // Resumes Game
     public void OnUnpause()
     {
         player_Map.Enable();
@@ -53,14 +68,17 @@ public class pauseMenu : MonoBehaviour
         Resume();
     }
     
-    void Resume()
+    // Turn off Menu Ui
+    public void Resume()
     {
         print("resume");
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
+
     }
 
+    // Turns on Menu Ui
     void Pause()
     {
         print("pause");
@@ -69,7 +87,27 @@ public class pauseMenu : MonoBehaviour
        GameIsPaused = true;
     }
 
-    public void TogglePause()
+    public void ExitGame()
+    {
+        print("Exit Game");
+        Application.Quit(); // ONLY WORKS WHEN GAME IS BUILT
+
+
+        // Allows to stop the unity editor from playing
+        EditorApplication.isPlaying = false;
+
+
+    }
+
+    public void RestartGame()
+    {
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f; 
+        restartPlayer.Reset(); 
+        
+    }
+
+public void TogglePause()
     {
         isPaused = !isPaused;
         // Enable or disable the pause UI here as needed.
