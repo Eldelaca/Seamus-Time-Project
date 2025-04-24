@@ -6,8 +6,18 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Checkpoint is Saved");
-            CheckpointManager.Instance.SetCheckpoint(other.transform.position);
+            Health health = other.GetComponent<Health>();
+            Restart playerReset = other.GetComponent<Restart>();
+
+            if (health != null && playerReset != null)
+            {
+                Debug.Log("Checkpoint is Saved");
+                // Save the player's position
+                playerReset.SetCheckpointPosition(other.transform.position);
+                CheckpointManager.Instance.SetCheckpoint(other.transform.position, health.GetCurrentHealth());
+            }
+
+            Destroy(gameObject);
         }
     }
 }

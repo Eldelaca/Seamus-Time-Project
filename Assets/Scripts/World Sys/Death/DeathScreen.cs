@@ -1,17 +1,29 @@
 using UnityEngine;
 
-public class DeathSceneManager : MonoBehaviour
+public class DeathScreen : MonoBehaviour
 {
-    // Reference to the CheckpointManager
     public DeathMenuUI deathUi;
 
-    // Trigger death screen logic from the checkpoint manager
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            deathUi.TriggerDeathScreen();
+            Health health = other.GetComponent<Health>();
+            Restart playerReset = other.GetComponent<Restart>();
+
+            if (health != null && playerReset != null)
+            {
+                health.TakeDamage(1f); // Apply damage
+
+                if (health.GetCurrentHealth() > 0)
+                {
+                    playerReset.ResetPosition();
+                }
+                else
+                {
+                    deathUi.TriggerDeathScreen();
+                }
+            }
         }
     }
-
 }

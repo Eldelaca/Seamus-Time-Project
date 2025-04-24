@@ -1,31 +1,21 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Restart : MonoBehaviour
 {
-    private Vector3 startPosition; // Stores the cords of players starting pos
-    private Transform playerTransform;
+    private Vector3 lastCheckpointPosition;
 
     private void Start()
     {
-        playerTransform = transform;
-        startPosition = playerTransform.position; // Stores the players first spawn pos when loading into the scene
+        lastCheckpointPosition = transform.position;
     }
 
-
-    // Restart Function
-    public void Reset()
+    public void SetCheckpointPosition(Vector3 position)
     {
-        if (CheckpointManager.Instance.HasCheckpoint())
-        {
-            // Goes to the last Checkpoint
-            playerTransform.position = CheckpointManager.Instance.GetCheckpointPosition();
-            Debug.Log("Restart last checkpoint");
-        }
-        else
-        {
-            // Restarts the whole scene if no checkpoint is found
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
+        lastCheckpointPosition = position;
+    }
+
+    public void ResetPosition()
+    {
+        transform.position = lastCheckpointPosition;
     }
 }

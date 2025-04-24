@@ -23,8 +23,6 @@ public class pauseMenu : MonoBehaviour
     private DepthOfField depthOfField;
     private bool isPaused = false;
 
-    private Restart restartPlayer; // Ref to Restart Script
-
     public GameObject checkpointManager;
 
     private void Awake()
@@ -36,10 +34,6 @@ public class pauseMenu : MonoBehaviour
     void Start()
     {
 
-        if (checkpointManager != null)
-        {
-            restartPlayer = checkpointManager.GetComponent<Restart>(); // Get the Restart component
-        }
 
         player_Map.Enable();
         ui_Map.Disable();
@@ -102,9 +96,9 @@ public class pauseMenu : MonoBehaviour
     public void RestartGame()
     {
         pauseMenuUI.SetActive(false);
-        Time.timeScale = 1f; 
-        restartPlayer.Reset(); 
-        
+        Time.timeScale = 1f;
+        CheckpointManager.Instance.RestartGame();
+
     }
 
 public void TogglePause()

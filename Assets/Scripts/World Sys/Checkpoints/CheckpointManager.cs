@@ -5,6 +5,7 @@ public class CheckpointManager : MonoBehaviour
 {
     public static CheckpointManager Instance;
     private Vector3 lastCheckpointPosition;
+    private float savedHealth = 1f;
     private bool hasCheckpoint = false;
 
     private void Awake()
@@ -12,7 +13,7 @@ public class CheckpointManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Preserve between scene reloads
+            DontDestroyOnLoad(gameObject);
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
@@ -21,7 +22,6 @@ public class CheckpointManager : MonoBehaviour
         }
     }
 
-    // Unsubscribe when this object is destroyed
     private void OnDestroy()
     {
         if (Instance == this)
@@ -30,63 +30,57 @@ public class CheckpointManager : MonoBehaviour
         }
     }
 
-    // This method is called each time a new scene is loaded.
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (hasCheckpoint)
         {
-            // Attempt to find the player by tag
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
                 player.transform.position = lastCheckpointPosition;
+                Health health = player.GetComponent<Health>();
+                if (health != null)
+                {
+                    health.SetHealth(savedHealth);
+                }
             }
         }
     }
 
-    // Save a new checkpoint position.
-    public void SetCheckpoint(Vector3 position)
+    public void SetCheckpoint(Vector3 position, float health)
     {
         lastCheckpointPosition = position;
+        savedHealth = health;
         hasCheckpoint = true;
     }
 
-    // Retrieve the last checkpoint position.
-    public Vector3 GetCheckpointPosition()
+    public float GetSavedHealth() 
     {
-        return lastCheckpointPosition;
+        return savedHealth;
     }
-
-    // Boolean check for a valid checkpoint.
-    public bool HasCheckpoint()
-    {
-        return hasCheckpoint;
-    }
-
     public void RestartGame()
     {
-        Time.timeScale = 1f; // Resume normal time
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    // Restart from the last checkpoint
     public void RestartFromCheckpoint()
     {
         if (hasCheckpoint)
         {
-            // Retrieve the last checkpoint position
-            Vector3 lastCheckpoint = GetCheckpointPosition();
-
-            // Move the player to the last checkpoint
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
-                player.transform.position = lastCheckpoint;
+                player.transform.position = lastCheckpointPosition;
+                Health health = player.GetComponent<Health>();
+                if (health != null)
+                {
+                    health.SetHealth(savedHealth);
+                }
             }
         }
         else
         {
-            Debug.LogError("No checkpoint set. Restarting the game instead.");
             RestartGame();
         }
     }
