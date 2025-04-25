@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Input Fields")]
-    public InventorySystem inventorySystem;
     private InputSystem_Actions inputSystemActions;
     private InputAction moveAction;
     private InputAction jumpAction;
@@ -25,7 +24,6 @@ public class PlayerMovement : MonoBehaviour
     public float groundDrag;
     [HideInInspector] public Vector3 moveDirection;
     private Vector3 lastMoveDirection;
-    private bool wasInteracting;
     [SerializeField] private float movementForce = 1f;
 
     [Header("Jumping")]
@@ -46,6 +44,13 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rb;
     
+    
+    [Header("Time Travel Input")] 
+    // Will change based on what TP Point the player enters, assignment handled by TP Point script
+    [HideInInspector] public TP_Connector current_TP_Connector;
+    private bool tp_In_Progress;
+    
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -60,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         interactAction = inputSystemActions.Player.Interact;
         shootAction = inputSystemActions.Player.Shoot;
     }
-
+    
     private void OnEnable()
     {
         moveAction.Enable();
@@ -90,15 +95,14 @@ public class PlayerMovement : MonoBehaviour
         startYScale = transform.localScale.y;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         StateController();
         SpeedControl();
-    }
-
-    private void FixedUpdate()
-    {
-        MovePlayer();
+        
+        if(tp_In_Progress == false)
+            MovePlayer();
+        
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
@@ -136,16 +140,7 @@ public class PlayerMovement : MonoBehaviour
         }
         
         var interactInput = interactAction.ReadValue<float>(); //right click
-        canDrag = interactInput > 0; //instead of if statement
-        bool isInteracting = interactInput > 0;
-
-        if (isInteracting && !wasInteracting) //detects a fresh press
-        {
-            if (!inventorySystem.holdingItem) inventorySystem.PickUpItem();
-            else if (inventorySystem.holdingItem) inventorySystem.DropItem();
-        }
-
-        wasInteracting = isInteracting;
+        canDrag = interactInput > 0;
 
         if (sprintInput <= 0 && crouchInput <= 0 && groundCheck.isGrounded)
         {
@@ -161,8 +156,19 @@ public class PlayerMovement : MonoBehaviour
         var shootInput = shootAction.ReadValue<float>();
         if (shootInput > 0)
         {
-            print("SHOOTING");
+            if (current_TP_Connector == null)
+                return;
+            else
+            {
+                tp_In_Progress = true;
+                rb.linearVelocity = Vector3.zero;
+                rb.linearDamping = 0;
+                current_TP_Connector.TP_Sorter();
+                Invoke(nameof(Reset_TP_Progress), .25f);
+            }
+            
         }
+        
     }
 
     private void MovePlayer()
@@ -250,4 +256,11 @@ public class PlayerMovement : MonoBehaviour
     {
         return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
     }
+
+    private void Reset_TP_Progress()
+    {
+        tp_In_Progress = false;
+    }
+    
+    
 }

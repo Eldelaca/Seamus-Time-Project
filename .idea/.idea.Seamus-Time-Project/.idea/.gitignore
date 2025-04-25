@@ -1,11 +1,11 @@
-﻿# Default ignored files
+# Default ignored files
 /shelf/
 /workspace.xml
 # Rider ignored files
 /contentModel.xml
-/modules.xml
-/.idea.Seamus-Time-Project.iml
 /projectSettingsUpdater.xml
+/.idea.Seamus-Time-Project.iml
+/modules.xml
 # Editor-based HTTP Client requests
 /httpRequests/
 # Datasource local storage ignored files
