@@ -11,9 +11,13 @@ public class PlayerMovement : MonoBehaviour
     private InputAction sprintAction;
     private InputAction interactAction;
     private InputAction shootAction;
+    private InputAction skipTextAction;
     [SerializeField] private GroundCheck groundCheck;
 
     public bool canDrag;
+    public bool skipLine;
+    public bool wasSkippingLastFrame = false;
+
     
     [Header("Movement")]
     private float moveSpeed;
@@ -64,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
         sprintAction = inputSystemActions.Player.Sprint;
         interactAction = inputSystemActions.Player.Interact;
         shootAction = inputSystemActions.Player.Shoot;
+        skipTextAction = inputSystemActions.Player.SkipLine;
     }
     
     private void OnEnable()
@@ -74,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
         sprintAction.Enable();
         interactAction.Enable();
         shootAction.Enable();
+        skipTextAction.Enable();
     }
 
     private void OnDisable()
@@ -84,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
         sprintAction.Disable();
         interactAction.Disable();
         shootAction.Disable();
+        skipTextAction.Disable();
     }
 
     private void Start()
@@ -122,7 +129,6 @@ public class PlayerMovement : MonoBehaviour
         if (crouchInput > 0)
         {
             moveSpeed = crouchSpeed;
-            print("crouching");
             
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
@@ -169,6 +175,13 @@ public class PlayerMovement : MonoBehaviour
             
         }
         
+        var skipInput = skipTextAction.ReadValue<float>();
+        skipLine = skipInput > 0;
+        if (skipLine && !wasSkippingLastFrame)
+        {
+            DialogueController.instance.SkipLine();
+        } 
+        wasSkippingLastFrame = skipLine;
     }
 
     private void MovePlayer()
