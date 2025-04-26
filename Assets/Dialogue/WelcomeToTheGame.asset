@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f64cd3d1c69fa7418d8590976cb814b, type: 3}
   m_Name: WelcomeToTheGame
   m_EditorClassIdentifier: 
-  dialogue: []
+  dialogue:
+  - Hello traveller!
+  - Welcome to the future
+  - And the past :D
+  - Go explore!
