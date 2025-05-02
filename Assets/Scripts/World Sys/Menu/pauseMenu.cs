@@ -24,6 +24,7 @@ public class pauseMenu : MonoBehaviour
     private bool isPaused = false;
 
     public GameObject checkpointManager;
+    public GameObject deathScreenUI;
 
     private void Awake()
     {
@@ -101,7 +102,28 @@ public class pauseMenu : MonoBehaviour
 
     }
 
-public void TogglePause()
+    
+
+    public void RestartFromCheckpoint()
+    {
+        CheckpointManager.Instance.RestartFromCheckpoint();
+        CloseDeathScreen();
+    }
+
+    private void CloseDeathScreen()
+    {
+        if (deathScreenUI != null)
+        {
+            deathScreenUI.SetActive(false);
+            Time.timeScale = 1f;
+        }
+        else
+        {
+            Debug.LogError("Death Screen UI is not assigned!");
+        }
+    }
+
+    public void TogglePause()
     {
         isPaused = !isPaused;
         // Enable or disable the pause UI here as needed.
@@ -116,4 +138,6 @@ public void TogglePause()
         // Pause or resume the game.
         Time.timeScale = isPaused ? 0f : 1f;
     }
+
+
 }
