@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
@@ -6,6 +5,7 @@ public class DialogueTrigger : MonoBehaviour
     public PlayerMovement playerMovement;
     public DialogueAsset dialogueAsset;
 
+    public bool destroyOnDialogueEnd = true;
 
     private int StartPosition
     {
@@ -30,11 +30,11 @@ public class DialogueTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && CompanionAI.instance.inPlace)
         {
             if (!inConversation)
             {
-                DialogueController.instance.DisplayDialogue(dialogueAsset.dialogue, StartPosition);
+                DialogueController.instance.DisplayDialogue(dialogueAsset.dialogue, StartPosition, this);
                 inConversation = true;
             }
         }

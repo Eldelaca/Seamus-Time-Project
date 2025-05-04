@@ -1,59 +1,71 @@
-using System;
-using System.Collections;
-using TMPro;
-using UnityEngine;
+    using System;
+    using System.Collections;
+    using TMPro;
+    using UnityEngine;
 
-public class DialogueController : MonoBehaviour
-{
-    public static DialogueController instance;
-    
-    [SerializeField] private TMP_Text dialogueText;
-    [SerializeField] private GameObject dialogueBox;
-    
-    private bool skipLine;
-
-    public void Awake()
+    public class DialogueController : MonoBehaviour
     {
-        instance = this;
-    }
-
-    public void Start()
-    {
-        dialogueBox.SetActive(false);
-    }
-
-    public void DisplayDialogue(string[] dialogue, int startPosition)
-    {
-        dialogueBox.SetActive(true);
+        public static DialogueController instance;
+        public bool conversationOver;
         
-        StopAllCoroutines();
-        StartCoroutine(RunDialogue(dialogue, startPosition));
-    }
+        [SerializeField] private TMP_Text dialogueText;
+        [SerializeField] private GameObject dialogueBox;
+        
+        private bool skipLine;
 
-    IEnumerator RunDialogue(string[] dialogue, int startPosition)
-    {
-        for (int i = 0; i < dialogue.Length; i++)
+        public void Awake()
         {
-            dialogueText.text = dialogue[i];
+            instance = this;
+        }
+
+        public void Start()
+        {
+            dialogueBox.SetActive(false);
+        }
+
+        public void DisplayDialogue(string[] dialogue, int startPosition, DialogueTrigger dialogueTrigger)
+        {
+            dialogueBox.SetActive(true);
             
-            while (!skipLine)
+            StopAllCoroutines();
+            StartCoroutine(RunDialogue(dialogue, startPosition, dialogueTrigger));
+        }
+
+        IEnumerator RunDialogue(string[] dialogue, int startPosition, DialogueTrigger dialogueTrigger)
+        {
+            if (CompanionAI.instance.inPlace)
             {
-                //waiting for the line to be skipped
-                yield return null;
+                foreach (var line in dialogue)
+                {
+                    conversationOver = false;
+                    
+                    dialogueText.text = line;
+
+                    while (!skipLine)
+                    {
+                        //waiting for the line to be skipped
+                        yield return null;
+                    }
+
+                    skipLine = false;
+                }
+
+                if (dialogueTrigger != null && dialogueTrigger.destroyOnDialogueEnd)
+                {
+                    conversationOver = true;
+                    Destroy(dialogueTrigger.gameObject);
+                }
             }
-            
-            skipLine = false;
+        }
+
+        public void SkipLine()
+        {
+            if (dialogueText.text != null) skipLine = true;
+        }
+
+        public void EndDialogue()
+        {
+            dialogueText.text = null;
+            dialogueBox.SetActive(false);
         }
     }
-
-    public void SkipLine()
-    {
-        if (dialogueText.text != null) skipLine = true;
-    }
-
-    public void EndDialogue()
-    {
-        dialogueText.text = null;
-        dialogueBox.SetActive(false);
-    }
-}
