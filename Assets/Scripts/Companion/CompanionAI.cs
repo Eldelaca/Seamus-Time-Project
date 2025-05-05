@@ -82,7 +82,19 @@ public class CompanionAI : MonoBehaviour
     private void Identify()
     {
         inPlace = true;
-
-        if (dialogueController.conversationOver) currentState = State.Patrolling;
+        
+        Vector3 direction = (playerLocation.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.RotateTowards(
+            transform.rotation,
+            lookRotation,
+            120f * Time.deltaTime
+        );
+        
+        
+        if (dialogueController.conversationOver)
+        {
+            currentState = State.Patrolling;
+        }
     }
 }
