@@ -69,18 +69,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Input",
+                    "name": "SkipLine",
                     "type": "Button",
-                    "id": "8c580da6-ece7-44bc-9a84-656a6e27079e",
+                    "id": "b5677969-cdf0-40e9-a061-bc3af29ed645",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Pause",
+                    "name": "Input",
                     "type": "Button",
-                    "id": "31c342ed-ce44-4c87-90ea-e486ff710042",
+                    "id": "21ca1a99-419f-4734-b941-a6322e555373",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -453,23 +453,23 @@
                 },
                 {
                     "name": "",
-                    "id": "af39d79d-2a13-4efc-9dc6-f5a88e6962da",
+                    "id": "3d05103e-883e-4a76-94f3-12cc7b7862f8",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Input",
+                    "action": "SkipLine",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "61673aeb-3f39-4ef9-be2c-5fef87e42db9",
-                    "path": "<Keyboard>/escape",
+                    "id": "f4c04002-db03-4cea-844b-06c869e64276",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Pause",
+                    "groups": ";Keyboard&Mouse;Joystick;Gamepad",
+                    "action": "Input",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -565,15 +565,6 @@
                     "type": "PassThrough",
                     "id": "9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be",
                     "expectedControlType": "Quaternion",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Unpause",
-                    "type": "Button",
-                    "id": "b061e950-f370-4491-a364-3e4e8dfd841b",
-                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -995,17 +986,6 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "342b9c97-45e4-4e5d-b2e0-fdf30afe2dd1",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Unpause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

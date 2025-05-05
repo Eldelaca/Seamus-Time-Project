@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Input Fields")]
-    public InventorySystem inventorySystem;
     private InputSystem_Actions inputSystemActions;
     private InputAction moveAction;
     private InputAction jumpAction;
@@ -12,9 +11,13 @@ public class PlayerMovement : MonoBehaviour
     private InputAction sprintAction;
     private InputAction interactAction;
     private InputAction shootAction;
+    private InputAction skipTextAction;
     [SerializeField] private GroundCheck groundCheck;
 
     public bool canDrag;
+    public bool skipLine;
+    public bool wasSkippingLastFrame = false;
+
     
     [Header("Movement")]
     private float moveSpeed;
@@ -25,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
     public float groundDrag;
     [HideInInspector] public Vector3 moveDirection;
     private Vector3 lastMoveDirection;
-    private bool wasInteracting;
     [SerializeField] private float movementForce = 1f;
 
     [Header("Jumping")]
@@ -66,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
         sprintAction = inputSystemActions.Player.Sprint;
         interactAction = inputSystemActions.Player.Interact;
         shootAction = inputSystemActions.Player.Shoot;
+        skipTextAction = inputSystemActions.Player.SkipLine;
     }
     
     private void OnEnable()
@@ -76,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
         sprintAction.Enable();
         interactAction.Enable();
         shootAction.Enable();
+        skipTextAction.Enable();
     }
 
     private void OnDisable()
@@ -86,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
         sprintAction.Disable();
         interactAction.Disable();
         shootAction.Disable();
+        skipTextAction.Disable();
     }
 
     private void Start()
@@ -124,7 +129,6 @@ public class PlayerMovement : MonoBehaviour
         if (crouchInput > 0)
         {
             moveSpeed = crouchSpeed;
-            print("crouching");
             
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
@@ -142,16 +146,7 @@ public class PlayerMovement : MonoBehaviour
         }
         
         var interactInput = interactAction.ReadValue<float>(); //right click
-        canDrag = interactInput > 0; //instead of if statement
-        bool isInteracting = interactInput > 0;
-
-        if (isInteracting && !wasInteracting) //detects a fresh press
-        {
-            if (!inventorySystem.holdingItem) inventorySystem.PickUpItem();
-            else if (inventorySystem.holdingItem) inventorySystem.DropItem();
-        }
-
-        wasInteracting = isInteracting;
+        canDrag = interactInput > 0;
 
         if (sprintInput <= 0 && crouchInput <= 0 && groundCheck.isGrounded)
         {
@@ -180,6 +175,13 @@ public class PlayerMovement : MonoBehaviour
             
         }
         
+        var skipInput = skipTextAction.ReadValue<float>();
+        skipLine = skipInput > 0;
+        if (skipLine && !wasSkippingLastFrame)
+        {
+            DialogueController.instance.SkipLine();
+        } 
+        wasSkippingLastFrame = skipLine;
     }
 
     private void MovePlayer()

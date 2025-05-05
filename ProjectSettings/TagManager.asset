@@ -5,7 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Draggable
-  - Holdable
+  - Timer
+  - Clue
+  - Companion
   layers:
   - Default
   - TransparentFX
@@ -14,8 +16,8 @@ TagManager:
   - Water
   - UI
   - Can_TP
-  - 
-  - 
+  - Companion
+  - Ground
   - 
   - 
   - 
