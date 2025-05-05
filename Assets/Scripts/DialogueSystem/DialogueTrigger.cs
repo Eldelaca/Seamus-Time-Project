@@ -2,11 +2,9 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    public PlayerMovement playerMovement;
     public DialogueAsset dialogueAsset;
-
     public bool destroyOnDialogueEnd = true;
-
+    
     private int StartPosition
     {
         get
@@ -22,17 +20,15 @@ public class DialogueTrigger : MonoBehaviour
             }
         }
     }
-    
-    
     private bool inConversation;
     private bool firstConversation;
     public int repeatDialoguePosition;
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && CompanionAI.instance.inPlace)
+        if (other.CompareTag("Player"))
         {
-            if (!inConversation)
+            if (!inConversation && CompanionAI.instance.inPlace)
             {
                 DialogueController.instance.DisplayDialogue(dialogueAsset.dialogue, StartPosition, this);
                 inConversation = true;
@@ -48,5 +44,4 @@ public class DialogueTrigger : MonoBehaviour
             inConversation = false;
         }
     }
-
 }

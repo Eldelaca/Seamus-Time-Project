@@ -33,28 +33,26 @@
 
         IEnumerator RunDialogue(string[] dialogue, int startPosition, DialogueTrigger dialogueTrigger)
         {
-            if (CompanionAI.instance.inPlace)
+            conversationOver = false;
+
+            foreach (var t in dialogue)
             {
-                foreach (var line in dialogue)
+                dialogueText.text = t;
+
+                while (!skipLine)
                 {
-                    conversationOver = false;
-                    
-                    dialogueText.text = line;
-
-                    while (!skipLine)
-                    {
-                        //waiting for the line to be skipped
-                        yield return null;
-                    }
-
-                    skipLine = false;
+                    yield return null;
                 }
 
-                if (dialogueTrigger != null && dialogueTrigger.destroyOnDialogueEnd)
-                {
-                    conversationOver = true;
-                    Destroy(dialogueTrigger.gameObject);
-                }
+                skipLine = false;
+            }
+
+            conversationOver = true;
+            EndDialogue();
+
+            if (dialogueTrigger != null && dialogueTrigger.destroyOnDialogueEnd)
+            {
+                Destroy(dialogueTrigger.gameObject);
             }
         }
 

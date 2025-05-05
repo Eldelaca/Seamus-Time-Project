@@ -21,7 +21,7 @@ public class CompanionAI : MonoBehaviour
     
     public static CompanionAI instance;
 
-    void Start()
+    private void Start()
     {
         instance = this;
         
@@ -30,7 +30,7 @@ public class CompanionAI : MonoBehaviour
         canvas.SetActive(false);
     }
 
-    void Update()
+    private void Update()
     {
         switch (currentState)
         {
@@ -46,7 +46,7 @@ public class CompanionAI : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Clue"))
         {
@@ -55,7 +55,7 @@ public class CompanionAI : MonoBehaviour
         }
     }
 
-    void Patrol()
+    private void Patrol()
     {
         Vector3 hoverOffset = -playerLocation.forward * 2 + Vector3.up;
         Vector3 targetPosition = playerLocation.position + hoverOffset;
@@ -63,15 +63,24 @@ public class CompanionAI : MonoBehaviour
         inPlace = false;
     }
 
-    void Investigate()
+    private void Investigate()
     {
-        if (currentClue)
-            agent.SetDestination(currentClue.transform.position + Vector3.up * 1.5f);
+        if (!currentClue) return;
+
+        Vector3 targetPosition = currentClue.transform.position + Vector3.up * 1.5f;
+        agent.SetDestination(targetPosition);
+
+        float distance = Vector3.Distance(transform.position, targetPosition);
+        if (distance <= agent.stoppingDistance + 2 && !agent.pathPending)
+        {
+            agent.ResetPath();
+            currentState = State.Identification;
+        }
     }
 
-    void Identify()
+
+    private void Identify()
     {
-        canvas.SetActive(true);
         inPlace = true;
 
         if (dialogueController.conversationOver) currentState = State.Patrolling;
