@@ -44,6 +44,8 @@ public class CompanionAI : MonoBehaviour
                 Identify();
                 break;
         }
+        
+        print(currentState);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -65,13 +67,17 @@ public class CompanionAI : MonoBehaviour
 
     private void Investigate()
     {
-        if (!currentClue) return;
+        if (!currentClue || !PlayerInRange.instance.playerInRange)
+        {
+            currentState = State.Patrolling;
+            return;
+        }
 
         Vector3 targetPosition = currentClue.transform.position + Vector3.up * 1.5f;
         agent.SetDestination(targetPosition);
 
         float distance = Vector3.Distance(transform.position, targetPosition);
-        if (distance <= agent.stoppingDistance + 2 && !agent.pathPending)
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.5f)
         {
             agent.ResetPath();
             currentState = State.Identification;
@@ -81,6 +87,12 @@ public class CompanionAI : MonoBehaviour
 
     private void Identify()
     {
+        if (!PlayerInRange.instance.playerInRange)
+        {
+            currentState = State.Patrolling;
+            return;
+        }
+        
         inPlace = true;
         
         Vector3 direction = (playerLocation.position - transform.position).normalized;
@@ -94,6 +106,7 @@ public class CompanionAI : MonoBehaviour
         
         if (dialogueController.conversationOver)
         {
+            dialogueController.conversationOver = false;
             currentState = State.Patrolling;
         }
     }
