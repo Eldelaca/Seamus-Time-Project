@@ -19,10 +19,6 @@ public class DeathMenuUI : MonoBehaviour
 
             deathScreenUI.SetActive(true);
             Time.timeScale = 0f;
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
         }
         else
         {
