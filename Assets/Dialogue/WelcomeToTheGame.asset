@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: WelcomeToTheGame
   m_EditorClassIdentifier: 
   dialogue:
-  - Hello traveller!
-  - Welcome to the future
-  - And the past :D
-  - Go explore!
+  - Wow there! A human? I haven't seen one in years!
+  - This is unusual, my calculations determend that no humans could have survived
+  - What is it you want?
+  - Back to the lab? The lab... yes!
+  - 'I know where the lab is
+
+    we have to find a way around all this rubble though...'
