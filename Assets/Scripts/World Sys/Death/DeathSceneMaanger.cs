@@ -3,7 +3,6 @@ using UnityEngine;
 public class DeathMenuUI : MonoBehaviour
 {
     public GameObject deathScreenUI;
-    private bool isDeathScreenActive = false;
 
     private void Start()
     {
@@ -20,7 +19,6 @@ public class DeathMenuUI : MonoBehaviour
 
             deathScreenUI.SetActive(true);
             Time.timeScale = 0f;
-            isDeathScreenActive = true;
         }
         else
         {
