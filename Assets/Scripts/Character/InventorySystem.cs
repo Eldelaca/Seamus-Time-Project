@@ -58,7 +58,10 @@ public class InventorySystem : MonoBehaviour
             itemImage.sprite = GetImageForItem(itemHoldingName);
             itemImage.enabled = true; 
             
-            Destroy(itemHoldingGameObject);
+            if (itemHoldingGameObject != null)
+            {
+                Destroy(itemHoldingGameObject);
+            }
             collidingWithItem = false;
             collidingWithItemName = "";
         }
@@ -68,7 +71,7 @@ public class InventorySystem : MonoBehaviour
         GameObject prefabToDrop = GetPrefabForItem(itemHoldingName);
         GameObject droppedItem = Instantiate(prefabToDrop, itemDropPos.position, itemDropPos.rotation);
         Rigidbody itemRb = droppedItem.GetComponent<Rigidbody>();
-        itemRb.AddForce(itemDropPos.forward * 100f, ForceMode.Impulse); // Adjust force as needed
+        itemRb.AddForce(itemDropPos.forward * 100f, ForceMode.Impulse); //adjust force as needed
         itemRb.angularDamping = 2f;
         droppedItem.name = itemHoldingName; 
         
