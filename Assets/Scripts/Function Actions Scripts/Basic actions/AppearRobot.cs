@@ -16,12 +16,13 @@ public class AppearRobot : MonoBehaviour
                 if (agent != null)
                 {
                     NavMeshHit hit;
-                    if (NavMesh.SamplePosition(tp.position, out hit, 1.0f, NavMesh.AllAreas))
+                    if (NavMesh.SamplePosition(tp.position, out hit, 5.0f, NavMesh.AllAreas))
                     {
                         agent.Warp(hit.position);
                     }
                     else
                     {
+                        // Checking if its finding the navmesh or not
                         Debug.LogWarning("Teleport destination not on NavMesh. Warping failed.");
                     }
                 }

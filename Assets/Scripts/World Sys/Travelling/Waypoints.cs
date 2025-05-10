@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class DoorTransition : MonoBehaviour
@@ -10,36 +11,33 @@ public class DoorTransition : MonoBehaviour
     private bool playerInRange;
 
     private InputSystem_Actions inputSystemActions;
-    private InputAction inputAction; 
+    private InputAction inputAction;
     private GameObject player;
-
-    private PlayerMovement playerMovement; 
 
     private void Awake()
     {
         inputSystemActions = new InputSystem_Actions();
-        inputAction = inputSystemActions.Player.Input; 
+        inputAction = inputSystemActions.Player.Input;
     }
 
     private void OnEnable()
     {
         inputAction.Enable();
-        inputAction.performed += OnInputPerformed; 
+        inputAction.performed += OnInputPerformed;
     }
 
     private void OnDisable()
     {
+        inputAction.performed -= OnInputPerformed;
         inputAction.Disable();
-        inputAction.performed -= OnInputPerformed; 
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) 
+        if (other.CompareTag("Player"))
         {
             playerInRange = true;
             player = other.gameObject;
-            playerMovement = player.GetComponent<PlayerMovement>(); 
         }
     }
 
@@ -49,7 +47,6 @@ public class DoorTransition : MonoBehaviour
         {
             playerInRange = false;
             player = null;
-            playerMovement = null; // Reset the reference
         }
     }
 
@@ -66,9 +63,25 @@ public class DoorTransition : MonoBehaviour
 
             if (companion != null)
             {
-                companion.transform.position = targetLocation.transform.position;
+                NavMeshAgent agent = companion.GetComponent<NavMeshAgent>();
+                if (agent != null)
+                {
+                    NavMeshHit hit;
+                    if (NavMesh.SamplePosition(targetLocation.transform.position, out hit, 5.0f, NavMesh.AllAreas))
+                    {
+                        agent.Warp(hit.position);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Target location not on NavMesh. Companion warping failed.");
+                        companion.transform.position = targetLocation.transform.position;
+                    }
+                }
+                else
+                {
+                    companion.transform.position = targetLocation.transform.position;
+                }
             }
         }
-
     }
 }
