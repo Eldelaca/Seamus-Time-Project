@@ -28,7 +28,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (!inConversation && CompanionAI.instance.inPlace)
+            if (!inConversation && CompanionAI.instance.inPlace && CompanionAI.instance.currentClue == this.gameObject)
             {
                 DialogueController.instance.DisplayDialogue(dialogueAsset.dialogue, StartPosition, this);
                 inConversation = true;

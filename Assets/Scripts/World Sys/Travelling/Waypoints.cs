@@ -4,7 +4,9 @@ using UnityEngine.InputSystem;
 public class DoorTransition : MonoBehaviour
 {
     [Header("Door Settings")]
-    public GameObject targetLocation; 
+    public GameObject targetLocation;
+    public GameObject companion;
+
     private bool playerInRange;
 
     private InputSystem_Actions inputSystemActions;
@@ -61,6 +63,12 @@ public class DoorTransition : MonoBehaviour
         if (playerInRange && targetLocation != null && player != null)
         {
             player.transform.position = targetLocation.transform.position;
+
+            if (companion != null)
+            {
+                companion.transform.position = targetLocation.transform.position;
+            }
         }
+
     }
 }

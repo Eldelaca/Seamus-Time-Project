@@ -48,6 +48,12 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rb;
     
+    [Header("Inventory System")]
+    public InventorySystem inventorySystem;
+
+    private bool isInteracting;
+    private bool wasInteracting;
+    
     
     [Header("Time Travel Input")] 
     // Will change based on what TP Point the player enters, assignment handled by TP Point script
@@ -148,6 +154,15 @@ public class PlayerMovement : MonoBehaviour
         var interactInput = interactAction.ReadValue<float>(); //right click
         canDrag = interactInput > 0;
 
+        bool isInteracting = interactInput > 0;
+        if (isInteracting && !wasInteracting) //detects one press
+        {
+            if (!inventorySystem.holdingItem) inventorySystem.PickUpItem();
+            else if (inventorySystem.holdingItem) inventorySystem.DropItem();
+        }
+        
+        wasInteracting = isInteracting;
+        
         if (sprintInput <= 0 && crouchInput <= 0 && groundCheck.isGrounded)
         {
             moveSpeed = walkSpeed;
