@@ -1,64 +1,45 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class DoorUnlockWithKeys : MonoBehaviour
 {
     public InventorySystem inventorySystem;
+    public PlayerMovement playerMovement;
     public string requiredKeyName;
     public GameObject doorObject;
     public bool playerInRange;
 
-    public InputSystem_Actions inputSystemActions;
-    public InputAction inputAction;
     public GameObject player;
     
     [Header("Audio")]
     public AudioSource doorSound;
 
-    private void Awake()
-    {
-        
-        inputSystemActions = new InputSystem_Actions();
-        inputAction = inputSystemActions.Player.Input;
-    }
-
-    private void OnEnable()
-    {
-        
-        inputAction.Enable();
-        inputAction.performed += OnInputPerformed;
-    }
-
-    private void OnDisable()
-    {
-        
-        inputAction.Disable();
-        inputAction.performed -= OnInputPerformed;
-    }
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
 
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             playerInRange = true;
-            player = collision.gameObject;
+            player = other.gameObject;
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             playerInRange = false;
             player = null;
         }
     }
 
-    private void OnInputPerformed(InputAction.CallbackContext context)
+    private void Update()
     {
-
-        TryUnlockDoor();
+        if (playerMovement != null &&  playerMovement.canDrag) //detects a click from RMB
+        {
+            TryUnlockDoor();
+        }
     }
 
     private void TryUnlockDoor()
@@ -69,7 +50,6 @@ public class DoorUnlockWithKeys : MonoBehaviour
 
             if (itemHoldingName == requiredKeyName)
             {
-                doorSound.Play();
                 DeleteDoor(); // Delete the door if the player holds the correct key
             }
         }

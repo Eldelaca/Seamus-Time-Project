@@ -173,8 +173,11 @@ public class PlayerMovement : MonoBehaviour
             if (!inventorySystem.holdingItem)
             {
                 inventorySystem.PickUpItem();
-                audioSource.clip = pickupSound;
-                audioSource.Play();
+                if (inventorySystem.canDrop)
+                {
+                    audioSource.clip = pickupSound;
+                    audioSource.Play();
+                }
             }
             else if (inventorySystem.holdingItem)
             {

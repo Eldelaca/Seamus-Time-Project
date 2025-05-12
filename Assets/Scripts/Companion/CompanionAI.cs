@@ -16,7 +16,6 @@ public class CompanionAI : MonoBehaviour
     private NavMeshAgent agent;
 
     public GameObject textBox;
-    public TMP_Text text;
 
     public bool inPlace;
     
@@ -33,7 +32,7 @@ public class CompanionAI : MonoBehaviour
 
     private void Update()
     {
-        switch (currentState)
+        switch (currentState) //state machine
         {
             case State.Patrolling:
                 Patrol();
@@ -54,7 +53,7 @@ public class CompanionAI : MonoBehaviour
         if (other.CompareTag("Clue"))
         {
             currentClue = other.gameObject;
-            currentState = State.Investigating;
+            currentState = State.Investigating; //switch stses if the companion detects a clue/ area of interest
         }
     }
 
@@ -68,8 +67,9 @@ public class CompanionAI : MonoBehaviour
 
     private void Investigate()
     {
-        if (!currentClue || !PlayerInRange.instance.playerInRange)
+        if (!currentClue || !PlayerInRange.instance.playerInRange) 
         {
+            // if the player is out of range, or if the clue is gone, then go back to patrolling
             currentState = State.Patrolling;
             return;
         }

@@ -61,7 +61,6 @@ public class TP_Connector : MonoBehaviour
                 TP_To_Past(obj);
             }
             
-            
             tp_Timer_Script.Start_Timer(gameObject);
         }
         
@@ -79,8 +78,10 @@ public class TP_Connector : MonoBehaviour
             }
             
         }
-        
         tpAudio.Play();
+        
+        player_Timeline_Script.UpdateAudio();
+        
         player_RB.isKinematic = false;
         
         // Small delay to prevent teleporting back on same input and spam related bugs
