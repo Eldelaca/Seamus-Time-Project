@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isInteracting;
     private bool wasInteracting;
+    private bool jumpInputReleased;
     
     
     [Header("Time Travel Input")] 
@@ -121,12 +122,15 @@ public class PlayerMovement : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     private void StateController()
     {
-        // when to jump
         var jumpInput = jumpAction.ReadValue<float>();
-        
-        if (groundCheck.isGrounded && jumpInput > 0 && readyToJump)
+
+        if (jumpInput == 0)
+            jumpInputReleased = true;
+
+        if (groundCheck.isGrounded && jumpInput > 0 && readyToJump && jumpInputReleased)
         {
             readyToJump = false;
+            jumpInputReleased = false;
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
@@ -219,14 +223,25 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
         }
 
-        else if(groundCheck.isGrounded)
-            rb.AddForce(moveDirection.normalized * (moveSpeed * 10f), ForceMode.Force); //walking
+        if (!WallInFront())
+        {
+            if (groundCheck.isGrounded)
+                rb.AddForce(moveDirection.normalized * (moveSpeed * 10f), ForceMode.Force);
+            else
+                rb.AddForce(moveDirection.normalized * (moveSpeed * 10f * airMultiplier), ForceMode.Force);
+        }
 
-        else if(!groundCheck.isGrounded)
-            rb.AddForce(moveDirection.normalized * (moveSpeed * 10f * airMultiplier), ForceMode.Force); //in air
-
+        if (!groundCheck.isGrounded && WallInFront())
+        {
+            rb.AddForce(Vector3.down * 10f, ForceMode.Force);
+        }
         // turn gravity off while on slope
-        rb.useGravity = !OnSlope();
+        rb.useGravity = !(OnSlope() && slopeHit.normal.y > 0.1f);
+    }
+    
+    bool WallInFront()
+    {
+        return Physics.Raycast(transform.position, transform.forward, 1.2f);
     }
 
     private void SpeedControl()
