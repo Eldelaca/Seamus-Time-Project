@@ -12,7 +12,7 @@ public class InventorySystem : MonoBehaviour
     public string itemHoldingName;
     [SerializeField] Image itemImage;
     public Transform itemDropPos;
-    private bool canDrop;
+    [HideInInspector] public bool canDrop;
     
     [Header("Items Prefabs")]
     [SerializeField] private GameObject keyRedPrefab;
@@ -40,10 +40,6 @@ public class InventorySystem : MonoBehaviour
         {
             canDrop = false;
         }
-        else
-        {
-            canDrop = true;
-        }
     }
 
     void OnTriggerExit(Collider other)
@@ -52,6 +48,10 @@ public class InventorySystem : MonoBehaviour
         {
             collidingWithItem = false;
             collidingWithItemName = "";
+        }
+        else if (other.gameObject.CompareTag("Door"))
+        {
+            canDrop = true;
         }
     }
 
@@ -79,21 +79,24 @@ public class InventorySystem : MonoBehaviour
     }
     public void DropItem()
     {
-        GameObject prefabToDrop = GetPrefabForItem(itemHoldingName);
-        GameObject droppedItem = Instantiate(prefabToDrop, itemDropPos.position, itemDropPos.rotation);
-        Rigidbody itemRb = droppedItem.GetComponent<Rigidbody>();
-        itemRb.AddForce(itemDropPos.forward * 100f, ForceMode.Impulse); //adjust force as needed
-        itemRb.angularDamping = 2f;
-        droppedItem.name = itemHoldingName; 
-        
-        itemImage.enabled = false;
-        
-        holdingItem = false;
-        itemHoldingName = "";
-        itemHoldingGameObject = null;   
-        
-        //if (!audioSource.isPlaying)
+        if (canDrop)
+        {
+            GameObject prefabToDrop = GetPrefabForItem(itemHoldingName);
+            GameObject droppedItem = Instantiate(prefabToDrop, itemDropPos.position, itemDropPos.rotation);
+            Rigidbody itemRb = droppedItem.GetComponent<Rigidbody>();
+            itemRb.AddForce(itemDropPos.forward * 100f, ForceMode.Impulse); //adjust force as needed
+            itemRb.angularDamping = 2f;
+            droppedItem.name = itemHoldingName; 
+            
+            itemImage.enabled = false;
+            
+            holdingItem = false;
+            itemHoldingName = "";
+            itemHoldingGameObject = null;   
+            
+            //if (!audioSource.isPlaying)
           //  audioSource.PlayOneShot(throwSound);
+        }
     }
     
     private Sprite GetImageForItem(string itemName)
