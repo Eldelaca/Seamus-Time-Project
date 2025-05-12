@@ -11,6 +11,9 @@ public class DoorUnlockWithKeys : MonoBehaviour
     public InputSystem_Actions inputSystemActions;
     public InputAction inputAction;
     public GameObject player;
+    
+    [Header("Audio")]
+    public AudioSource doorSound;
 
     private void Awake()
     {
@@ -66,6 +69,7 @@ public class DoorUnlockWithKeys : MonoBehaviour
 
             if (itemHoldingName == requiredKeyName)
             {
+                doorSound.Play();
                 DeleteDoor(); // Delete the door if the player holds the correct key
             }
         }
@@ -73,6 +77,7 @@ public class DoorUnlockWithKeys : MonoBehaviour
 
     private void DeleteDoor()
     {
+        doorSound.Play();
         
         if (doorObject != null)
         {

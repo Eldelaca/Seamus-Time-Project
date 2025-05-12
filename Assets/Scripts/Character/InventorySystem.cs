@@ -12,7 +12,7 @@ public class InventorySystem : MonoBehaviour
     public string itemHoldingName;
     [SerializeField] Image itemImage;
     public Transform itemDropPos;
-    
+    private bool canDrop;
     
     [Header("Items Prefabs")]
     [SerializeField] private GameObject keyRedPrefab;
@@ -35,6 +35,14 @@ public class InventorySystem : MonoBehaviour
         {
             collidingWithItem = true;
             collidingWithItemName = other.gameObject.transform.root.name;
+        }
+        else if (other.gameObject.CompareTag("Door"))
+        {
+            canDrop = false;
+        }
+        else
+        {
+            canDrop = true;
         }
     }
 
@@ -64,6 +72,9 @@ public class InventorySystem : MonoBehaviour
             }
             collidingWithItem = false;
             collidingWithItemName = "";
+
+            //if (!audioSource.isPlaying)
+                //audioSource.PlayOneShot(pickupSound);
         }
     }
     public void DropItem()
@@ -80,6 +91,9 @@ public class InventorySystem : MonoBehaviour
         holdingItem = false;
         itemHoldingName = "";
         itemHoldingGameObject = null;   
+        
+        //if (!audioSource.isPlaying)
+          //  audioSource.PlayOneShot(throwSound);
     }
     
     private Sprite GetImageForItem(string itemName)

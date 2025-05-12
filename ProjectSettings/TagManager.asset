@@ -8,6 +8,8 @@ TagManager:
   - Timer
   - Clue
   - Companion
+  - Holdable
+  - Door
   layers:
   - Default
   - TransparentFX

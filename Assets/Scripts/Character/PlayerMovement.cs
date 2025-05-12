@@ -61,6 +61,12 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public TP_Connector current_TP_Connector;
     private bool tp_In_Progress;
     
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip footstepsClip;
+    public AudioClip jumpClip;
+    public AudioClip pickupSound;
+    public AudioClip throwSound;
     
     private void Awake()
     {
@@ -131,6 +137,10 @@ public class PlayerMovement : MonoBehaviour
         {
             readyToJump = false;
             jumpInputReleased = false;
+        
+            audioSource.clip = jumpClip;
+            audioSource.Play();
+            
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
@@ -151,7 +161,6 @@ public class PlayerMovement : MonoBehaviour
         var sprintInput = sprintAction.ReadValue<float>();
         if (sprintInput > 0)
         {
-            print("sprinting");
             moveSpeed = sprintSpeed;
         }
         
@@ -161,8 +170,18 @@ public class PlayerMovement : MonoBehaviour
         bool isInteracting = interactInput > 0;
         if (isInteracting && !wasInteracting) //detects one press
         {
-            if (!inventorySystem.holdingItem) inventorySystem.PickUpItem();
-            else if (inventorySystem.holdingItem) inventorySystem.DropItem();
+            if (!inventorySystem.holdingItem)
+            {
+                inventorySystem.PickUpItem();
+                audioSource.clip = pickupSound;
+                audioSource.Play();
+            }
+            else if (inventorySystem.holdingItem)
+            {
+                inventorySystem.DropItem();
+                audioSource.clip = throwSound;
+                audioSource.Play();
+            }
         }
         
         wasInteracting = isInteracting;
@@ -213,6 +232,20 @@ public class PlayerMovement : MonoBehaviour
             lastMoveDirection = moveDirection.normalized;
             Quaternion rotation = Quaternion.LookRotation(lastMoveDirection, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime);
+
+            if (!audioSource.isPlaying)
+            {
+                if (groundCheck.isGrounded)
+                {
+                    audioSource.clip = footstepsClip;
+                    audioSource.Play();
+                }
+            }
+        }
+        else
+        {
+            if (audioSource.isPlaying && audioSource.clip == footstepsClip)
+                audioSource.Stop();
         }
 
         if (OnSlope() && !exitingSlope)
@@ -224,9 +257,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
         else if (groundCheck.isGrounded)
+        {
             rb.AddForce(moveDirection.normalized * (moveSpeed * 10f), ForceMode.Force);
+        }
         else
+        {
             rb.AddForce(moveDirection.normalized * (moveSpeed * 10f * airMultiplier), ForceMode.Force);
+        }
 
         if (!groundCheck.isGrounded && WallInFront())
         {
@@ -272,6 +309,7 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+
     }
     private void ResetJump()
     {

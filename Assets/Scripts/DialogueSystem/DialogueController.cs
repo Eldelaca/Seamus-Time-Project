@@ -11,6 +11,8 @@
         [SerializeField] private TMP_Text dialogueText;
         [SerializeField] private GameObject dialogueBox;
         
+        public AudioSource audioSourceTalking;
+        
         private bool skipLine;
 
         public void Awake()
@@ -43,13 +45,13 @@
                 {
                     yield return null;
                 }
-
+                audioSourceTalking.Play();
                 skipLine = false;
             }
 
             conversationOver = true;
             EndDialogue();
-
+            audioSourceTalking.Stop();
             if (dialogueTrigger != null && dialogueTrigger.destroyOnDialogueEnd)
             {
                 Destroy(dialogueTrigger.gameObject);

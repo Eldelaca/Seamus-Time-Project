@@ -24,6 +24,8 @@ public class TP_Connector : MonoBehaviour
     [SerializeField] private GameObject past_Obj_TP_Point;
     
     [SerializeField] private float tp_Search_Radius; // Radius of OverlapSphere to search for non-player objects to TP
+
+    public AudioSource tpAudio;
     
     [Header("Visible for testing - Don't touch")]
     public List<GameObject> objects_To_TP;
@@ -78,6 +80,7 @@ public class TP_Connector : MonoBehaviour
             
         }
         
+        tpAudio.Play();
         player_RB.isKinematic = false;
         
         // Small delay to prevent teleporting back on same input and spam related bugs
