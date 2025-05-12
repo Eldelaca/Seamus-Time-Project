@@ -4,7 +4,7 @@ public class GroundCheck : MonoBehaviour
 {
     public bool isGrounded;
     public float groundCheckDistance;
-    private float groundCheckBuffer = 0.2f;
+    public float groundCheckBuffer = 0.2f;
 
     private void Update()
     {
