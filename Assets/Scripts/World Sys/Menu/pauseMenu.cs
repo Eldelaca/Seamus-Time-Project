@@ -5,6 +5,7 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
 using UnityEngine.InputSystem;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 
 public class pauseMenu : MonoBehaviour
 {
@@ -17,14 +18,17 @@ public class pauseMenu : MonoBehaviour
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
+    public GameObject settingsUI;
+    public GameObject checkpointManager;
+    public GameObject deathScreenUI;
+
 
     public Volume postProcessingVolume; 
 
     private DepthOfField depthOfField;
     private bool isPaused = false;
 
-    public GameObject checkpointManager;
-    public GameObject deathScreenUI;
+    
 
     private void Awake()
     {
@@ -88,7 +92,7 @@ public class pauseMenu : MonoBehaviour
         Application.Quit(); // ONLY WORKS WHEN GAME IS BUILT
 
 
-        // Allows to stop the unity editor from playing
+        // allows us to stop the unity editor from playing
         EditorApplication.isPlaying = false;
 
 
@@ -102,12 +106,27 @@ public class pauseMenu : MonoBehaviour
 
     }
 
-    
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 
     public void RestartFromCheckpoint()
     {
         CheckpointManager.Instance.RestartFromCheckpoint();
         CloseDeathScreen();
+    }
+
+    public void OpenSettings()
+    {
+        if (settingsUI != null) return;
+        settingsUI.SetActive(!settingsUI.activeSelf);
+    }
+
+    public void CloseSettings()
+    {
+        if (settingsUI != null) return;
+        settingsUI.SetActive(false);
     }
 
     private void CloseDeathScreen()
