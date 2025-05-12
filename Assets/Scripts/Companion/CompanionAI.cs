@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 public class CompanionAI : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class CompanionAI : MonoBehaviour
 
     private NavMeshAgent agent;
 
-    public GameObject canvas;
+    public GameObject textBox;
     public TMP_Text text;
 
     public bool inPlace;
@@ -27,7 +28,7 @@ public class CompanionAI : MonoBehaviour
         
         agent = GetComponent<NavMeshAgent>();
         currentState = State.Patrolling;
-        canvas.SetActive(false);
+        textBox.SetActive(false);
     }
 
     private void Update()

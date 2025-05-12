@@ -223,13 +223,10 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
         }
 
-        if (!WallInFront())
-        {
-            if (groundCheck.isGrounded)
-                rb.AddForce(moveDirection.normalized * (moveSpeed * 10f), ForceMode.Force);
-            else
-                rb.AddForce(moveDirection.normalized * (moveSpeed * 10f * airMultiplier), ForceMode.Force);
-        }
+        else if (groundCheck.isGrounded)
+            rb.AddForce(moveDirection.normalized * (moveSpeed * 10f), ForceMode.Force);
+        else
+            rb.AddForce(moveDirection.normalized * (moveSpeed * 10f * airMultiplier), ForceMode.Force);
 
         if (!groundCheck.isGrounded && WallInFront())
         {
