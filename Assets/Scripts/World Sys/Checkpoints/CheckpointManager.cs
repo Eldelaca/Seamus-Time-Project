@@ -1,5 +1,14 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+
+/// <summary>
+/// This code ensures the saving and loading
+/// Grabs health
+/// Grabs player pos and
+/// Checks if player reaches checkpoint player has the option to start from there.
+/// </summary>
 
 public class CheckpointManager : MonoBehaviour
 {
@@ -13,7 +22,7 @@ public class CheckpointManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); // Makes sure it doesn't
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
@@ -47,6 +56,7 @@ public class CheckpointManager : MonoBehaviour
         }
     }
 
+    // saving checkpoint
     public void SetCheckpoint(Vector3 position, float health)
     {
         lastCheckpointPosition = position;
@@ -54,6 +64,7 @@ public class CheckpointManager : MonoBehaviour
         hasCheckpoint = true;
     }
 
+    // saving Health Method
     public float GetSavedHealth() 
     {
         return savedHealth;
@@ -64,6 +75,7 @@ public class CheckpointManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    // Restart from last check method
     public void RestartFromCheckpoint()
     {
         if (hasCheckpoint)

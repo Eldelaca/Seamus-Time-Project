@@ -33,6 +33,8 @@ public class TimerDamage : MonoBehaviour
 
     private void Start()
     {
+        // Checks all req for Debugging
+
         // find timeline if not assigned
         if (timeline == null)
             timeline = UnityEngine.Object.FindFirstObjectByType<Player_Timeline>();
@@ -44,7 +46,7 @@ public class TimerDamage : MonoBehaviour
             return;
         }
 
-        // grabs player Health
+        // checks for Health Script from player
         var player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
             playerHealth = player.GetComponent<Health>();
@@ -62,6 +64,7 @@ public class TimerDamage : MonoBehaviour
         if (warningImage != null)
             warningImage.enabled = false;
     }
+
 
     private void Update()
     {

@@ -1,5 +1,11 @@
 using UnityEngine;
 
+/// <summary>
+/// Code just shows on run
+/// and method is being used else where in checkpoint manager script
+/// Pops up death Menu Ui
+/// </summary>
+
 public class DeathMenuUI : MonoBehaviour
 {
     public GameObject deathScreenUI;

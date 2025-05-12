@@ -16,6 +16,7 @@ public class TP_Timer : MonoBehaviour
 
     private void Start()
     {
+        
         player_Ref = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -36,11 +37,13 @@ public class TP_Timer : MonoBehaviour
         float timer = timer_Max;
 
         timerImage.gameObject.SetActive(true);
+        
         while (timer > 0)
         {
             timer -= Time.deltaTime;
             timer_Text.text = (Mathf.Round(timer * 100.0f) * 0.01f).ToString();
             timerImage.fillAmount = timer / timer_Max;
+
             yield return null;
         }
         
