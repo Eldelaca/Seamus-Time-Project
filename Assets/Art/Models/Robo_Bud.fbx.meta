@@ -3,7 +3,17 @@ guid: b607041d8ef3ecd488ed4ad8a9e7ae71
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Robo_Buddy-Body
+    second: {fileID: 2100000, guid: 322a77a9d707cef4a94c85d96afc6377, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Robo_Buddy-Face
+    second: {fileID: 2100000, guid: 140d974b84b50144daa8fec918062bcc, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
