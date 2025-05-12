@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TP_Timer : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class TP_Timer : MonoBehaviour
     private GameObject player_Ref;
     private TP_Connector call_Origin_Script;
     public bool timer_Active;
+    public Image timerImage;
 
 
     private void Start()
@@ -33,13 +35,16 @@ public class TP_Timer : MonoBehaviour
         
         float timer = timer_Max;
 
+        timerImage.gameObject.SetActive(true);
         while (timer > 0)
         {
             timer -= Time.deltaTime;
             timer_Text.text = (Mathf.Round(timer * 100.0f) * 0.01f).ToString();
+            timerImage.fillAmount = timer / timer_Max;
             yield return null;
         }
         
+        timerImage.gameObject.SetActive(false);
         timer_Text.text = "";
         call_Origin_Script.objects_To_TP.Add(player_Ref);
         call_Origin_Script.TP_Sorter();
