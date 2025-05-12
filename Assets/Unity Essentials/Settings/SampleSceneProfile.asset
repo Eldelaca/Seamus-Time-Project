@@ -18,12 +18,12 @@ MonoBehaviour:
     m_Value: 0
   threshold:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.82
   intensity:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 0.41
   scatter:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0.5
   clamp:
     m_OverrideState: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
   highQualityFiltering:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   downscale:
     m_OverrideState: 0
@@ -68,7 +68,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.2
+    m_Value: 0.222
   smoothness:
     m_OverrideState: 0
     m_Value: 0.2
@@ -92,6 +92,29 @@ MonoBehaviour:
   - {fileID: -7893295128165547882}
   - {fileID: 7391319092446245454}
   - {fileID: -3357603926938260329}
+  - {fileID: 113610478027244266}
+--- !u!114 &113610478027244266
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
+  m_Name: LiftGammaGain
+  m_EditorClassIdentifier: 
+  active: 1
+  lift:
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 0.9710936, z: 0.9828697, w: 0}
+  gamma:
+    m_OverrideState: 1
+    m_Value: {x: 0.84943426, y: 0.88869095, z: 1, w: 0}
+  gain:
+    m_OverrideState: 1
+    m_Value: {x: 0.98925006, y: 1, z: 0.9830838, w: 0}
 --- !u!114 &849379129802519247
 MonoBehaviour:
   m_ObjectHideFlags: 3
