@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private InputAction interactAction;
     private InputAction shootAction;
     private InputAction skipTextAction;
-    [SerializeField] private GroundCheck groundCheck;
+    public GroundCheck groundCheck;
 
     public bool canDrag;
     public bool skipLine;
@@ -20,13 +20,13 @@ public class PlayerMovement : MonoBehaviour
 
     
     [Header("Movement")]
-    private float moveSpeed;
+    [HideInInspector] public float moveSpeed;
     public float walkSpeed;
     public float sprintSpeed;
     public float rotateSpeed;
 
     public float groundDrag;
-    [HideInInspector] public Vector3 moveDirection;
+    public Vector3 moveDirection;
     private Vector3 lastMoveDirection;
     [SerializeField] private float movementForce = 1f;
 
@@ -241,7 +241,7 @@ public class PlayerMovement : MonoBehaviour
     
     bool WallInFront()
     {
-        return Physics.Raycast(transform.position, transform.forward, 1.2f);
+        return Physics.Raycast(transform.position, transform.forward, 1f);
     }
 
     private void SpeedControl()
